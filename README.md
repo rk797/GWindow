@@ -47,7 +47,6 @@ import tkinter as tk
 root = tk.Tk()
 root.title("demo")
 root.geometry("300x300")
-windowTitle = "demo"
 
 def mainLoop():
     hwnd = gw.getHWND("demo")
