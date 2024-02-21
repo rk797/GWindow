@@ -1,0 +1,8 @@
+README.md
+pyproject.toml
+setup.cfg
+src/ghostwindow/__init__.py
+src/ghostwindow.egg-info/PKG-INFO
+src/ghostwindow.egg-info/SOURCES.txt
+src/ghostwindow.egg-info/dependency_links.txt
+src/ghostwindow.egg-info/top_level.txt
