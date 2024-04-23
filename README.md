@@ -71,6 +71,7 @@ print(ghostwindow.getWindowProcessId(title))
 ```
 getHWND(winTitle)
 excludeCapture(hwnd)
+includeCapture(hwnd)
 hideWindow(hwnd)
 showWindow(hwnd)
 setWindowTransparency(hwnd, trans)

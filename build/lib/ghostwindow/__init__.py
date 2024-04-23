@@ -144,7 +144,6 @@ def closeWindow(_hwnd):
     except Exception as e:
         print(f"Error: {e}")
 
-
 def excludeCapture(_hwnd):
     HWND = getHWND(_hwnd)
     # WDA_NONE = 0x00000000
@@ -156,6 +155,35 @@ def excludeCapture(_hwnd):
 
 
     if SetWindowDisplayAffinity(HWND, WDA_EXCLUDEFROMCAPTURE):
+        pass
+    else:
+        error_code = ctypes.windll.kernel32.GetLastError()
+        print(f"Failed to set window display affinity. Error code: {error_code}")
+        if error_code == 5:
+            print("Access denied. Window must belong to the current process.")
+        ctypes.windll.kernel32.FormatMessageW.restype = ctypes.wintypes.DWORD
+        ctypes.windll.kernel32.FormatMessageW.argtypes = [
+            ctypes.wintypes.DWORD, ctypes.wintypes.LPCVOID, ctypes.wintypes.DWORD,
+            ctypes.wintypes.DWORD, ctypes.wintypes.LPWSTR, ctypes.wintypes.DWORD,
+            ctypes.wintypes.LPVOID
+        ]
+        message_buffer = ctypes.create_unicode_buffer(256)
+        ctypes.windll.kernel32.FormatMessageW(
+            0x00001000 | 0x00000200, None, error_code, 0, message_buffer,
+            ctypes.sizeof(message_buffer) // ctypes.sizeof(ctypes.wintypes.WCHAR), None
+        )
+        print(f"Error message: {message_buffer.value}")
+
+def includeCapture(_hwnd):
+    HWND = getHWND(_hwnd)
+    WDA_INCLUDECAPTURE = 0x00000000
+
+    SetWindowDisplayAffinity = ctypes.windll.user32.SetWindowDisplayAffinity
+    SetWindowDisplayAffinity.argtypes = [ctypes.wintypes.HWND, ctypes.wintypes.DWORD]
+    SetWindowDisplayAffinity.restype = ctypes.wintypes.BOOL
+
+
+    if SetWindowDisplayAffinity(HWND, WDA_INCLUDECAPTURE):
         pass
     else:
         error_code = ctypes.windll.kernel32.GetLastError()

@@ -11,7 +11,7 @@ windowTitle = "demo"
 
 def mainLoop():
     while True:
-        option = input("(1) Hide window\n(2) Show window\n(3) Set window transparency\n(4) Reset window transparency\n(5) Exclude window from capture\n(6) Minimize window\n(7) Maximize window\n(8) Bring window to front\n(9) Close window\nEnter option:")
+        option = input("(1) Hide window\n(2) Show window\n(3) Set window transparency\n(4) Reset window transparency\n(5) Exclude window from capture\n(6) Minimize window\n(7) Maximize window\n(8) Bring window to front\n(9) Close window\n(10) Include Capture\nEnter option:")
         match option:
             case "1":
                 gw.hideWindow(windowTitle)
@@ -32,6 +32,8 @@ def mainLoop():
             case "9":
                 gw.closeWindow(windowTitle)
                 exit()
+            case "10":
+                gw.includeCapture(windowTitle)
             case _:
                 print("Invalid option")
 
